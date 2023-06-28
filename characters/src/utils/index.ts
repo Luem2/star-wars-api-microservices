@@ -13,6 +13,15 @@ class Utils {
         this.HttpError = CustomError
     }
 
+    httpNotFound({ response }: Context) {
+        response.status = 404
+        response.type = 'json'
+        response.body = {
+            status: 404,
+            error: 'Not Found',
+        }
+    }
+
     httpResponse(res: Response, statusCode: number, data: unknown) {
         res.status = statusCode
         res.body = {
@@ -38,4 +47,5 @@ class Utils {
     }
 }
 
-export const { httpResponse, errorHandler, HttpError } = new Utils()
+export const { httpResponse, errorHandler, HttpError, httpNotFound } =
+    new Utils()
