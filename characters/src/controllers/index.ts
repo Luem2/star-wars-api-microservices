@@ -9,6 +9,12 @@ class Controllers {
 
         httpResponse(response, 200, characters)
     }
+
+    async createCharacter({ request, response }: Context) {
+        const body = await request.body().value
+
+        httpResponse(response, 200, body)
+    }
 }
 
 export const ctls = new Controllers()

@@ -25,4 +25,4 @@ app.addEventListener('listen', ({ port, hostname, secure }) => {
     console.info(`🟢 App is running at ${protocol}://${host}:${port}`)
 })
 
-await app.listen({ port: 7000 })
+await app.listen({ port: 7001 })
