@@ -1,9 +1,11 @@
-FROM denoland/deno:1.10.3
-
-WORKDIR /app
-
-COPY . .
+FROM denoland/deno:alpine
 
 EXPOSE 7002
 
-CMD ["deno", "task", "start"]
+WORKDIR /app
+
+ADD . .
+
+RUN deno cache ./src/main.ts
+
+CMD ["run", "--allow-net", "./src/main.ts"]

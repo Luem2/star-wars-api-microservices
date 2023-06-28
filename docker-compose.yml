@@ -1,0 +1,58 @@
+version: '3.8'
+name: star-wars-api
+
+services:
+    gateway:
+        container_name: gateway
+        restart: always
+        image: gateway:latest
+        build:
+            context: ./gateway
+        ports:
+            - '7000:7000'
+        networks:
+            - bridge
+
+    characters:
+        container_name: characters
+        restart: always
+        image: characters:latest
+        build:
+            context: ./characters
+        ports:
+            - '7001:7001'
+        depends_on:
+            - gateway
+        networks:
+            - bridge
+
+    films:
+        container_name: films
+        restart: unless-stopped
+        image: films:latest
+        build:
+            context: ./films
+        ports:
+            - '7002:7002'
+        depends_on:
+            - gateway
+        networks:
+            - bridge
+
+    planets:
+        container_name: planets
+        restart: unless-stopped
+        image: planets:latest
+        build:
+            context: ./planets
+        ports:
+            - '7003:7003'
+        depends_on:
+            - gateway
+        networks:
+            - bridge
+
+networks:
+    bridge:
+        name: bridge
+        external: true
