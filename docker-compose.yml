@@ -4,18 +4,18 @@ name: star-wars-api
 services:
     gateway:
         container_name: gateway
-        restart: always
+        restart: unless-stopped
         image: gateway:latest
         build:
             context: ./gateway
         ports:
             - '7000:7000'
         networks:
-            - bridge
+            - starwars
 
     characters:
         container_name: characters
-        restart: always
+        restart: unless-stopped
         image: characters:latest
         build:
             context: ./characters
@@ -24,7 +24,7 @@ services:
         depends_on:
             - gateway
         networks:
-            - bridge
+            - starwars
 
     films:
         container_name: films
@@ -37,7 +37,7 @@ services:
         depends_on:
             - gateway
         networks:
-            - bridge
+            - starwars
 
     planets:
         container_name: planets
@@ -50,9 +50,7 @@ services:
         depends_on:
             - gateway
         networks:
-            - bridge
+            - starwars
 
 networks:
-    bridge:
-        name: bridge
-        external: true
+    starwars:
