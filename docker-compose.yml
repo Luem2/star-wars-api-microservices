@@ -2,6 +2,15 @@ version: '3.8'
 name: star-wars-api
 
 services:
+    db:
+        container_name: mongo-db
+        restart: unless-stopped
+        image: mongo:latest
+        ports:
+            - '27017:27017'
+        networks:
+            - starwars
+
     gateway:
         container_name: gateway
         restart: unless-stopped
@@ -10,6 +19,8 @@ services:
             context: ./gateway
         ports:
             - '7000:7000'
+        depends_on:
+            - db
         networks:
             - starwars
 
