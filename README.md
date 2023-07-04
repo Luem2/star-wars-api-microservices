@@ -23,7 +23,27 @@ Haciendo este proyecto, pude aprender la arquitectura de microservicios, base de
 -   [![TypeORM][typeorm]][typeorm-url]
 -   [![Docker][docker]][docker-url]
 
-## Getting Started Docker (Correr el proyecto)
+## Correr el proyecto
+
+### Requisito previo (Docker instalado)
+
+It is necessary to have [docker](https://docs.docker.com/engine/install/) and [docker compose](https://docs.docker.com/compose/) installed. Make sure you have them installed, follow the installation guide on the official page.
+
+-   Check if they are _installed_, run the following commands to see their version:
+    <br />
+    `docker --version`
+    <br />
+    `docker compose version`
+
+    Output example:
+
+    ```sh
+    - docker --version
+    Docker version 23.0.1, build a5ee5b1
+
+    - docker compose version
+    Docker Compose version v2.16.0
+    ```
 
 1. **In the root of the project folder `star-wars-api-microservices`** run the following command, and wait for the installation to finish:
 
