@@ -2,7 +2,7 @@ version: '3.8'
 name: star-wars-api
 
 services:
-    db:
+    mongo:
         container_name: mongo-db
         restart: unless-stopped
         image: mongo:latest
@@ -10,56 +10,60 @@ services:
             - '27017:27017'
         networks:
             - starwars
+    database:
+        container_name: database-starwars
+        restart: unless-stopped
+        image: database-starwars:latest
+        build:
+            context: ./database
+        ports:
+            - '7004:7004'
+        depends_on:
+            - mongo
+        networks:
+            - starwars
 
     gateway:
-        container_name: gateway
+        container_name: gateway-starwars
         restart: unless-stopped
-        image: gateway:latest
+        image: gateway-starwars:latest
         build:
             context: ./gateway
         ports:
             - '7000:7000'
-        depends_on:
-            - db
         networks:
             - starwars
 
     characters:
-        container_name: characters
+        container_name: characters-starwars
         restart: unless-stopped
-        image: characters:latest
+        image: characters-starwars:latest
         build:
             context: ./characters
         ports:
             - '7001:7001'
-        depends_on:
-            - gateway
         networks:
             - starwars
 
     films:
-        container_name: films
+        container_name: films-starwars
         restart: unless-stopped
-        image: films:latest
+        image: films-starwars:latest
         build:
             context: ./films
         ports:
             - '7002:7002'
-        depends_on:
-            - gateway
         networks:
             - starwars
 
     planets:
-        container_name: planets
+        container_name: planets-starwars
         restart: unless-stopped
-        image: planets:latest
+        image: planets-starwars:latest
         build:
             context: ./planets
         ports:
             - '7003:7003'
-        depends_on:
-            - gateway
         networks:
             - starwars
 
