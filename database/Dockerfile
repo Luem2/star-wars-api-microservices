@@ -8,6 +8,6 @@ ADD . .
 
 RUN deno cache ./src/main.ts
 
-RUN deno run --allow-net --allow-read ./src/utils/seed.ts
+RUN deno run --allow-net --allow-read -c ./tsconfig.json ./src/utils/seed.ts
 
-CMD ["run", "--allow-net", "./src/main.ts"]
+CMD ["run", "--allow-net", "-c", "./tsconfig.json", "./src/main.ts"]
