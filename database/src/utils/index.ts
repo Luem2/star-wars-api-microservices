@@ -30,22 +30,31 @@ class Utils {
         }
     }
 
-    async errorHandler(ctx: Context, next: Next) {
+    normalizeParameter(query: string) {
+        return query.charAt(0).toUpperCase() + query.slice(1)
+    }
+
+    async errorHandler({ response }: Context, next: Next) {
         try {
             await next()
         } catch (error) {
             error instanceof CustomError
-                ? (ctx.response.status = error.statusCode)
-                : (ctx.response.status = 500)
+                ? (response.status = error.statusCode)
+                : (response.status = 500)
 
-            ctx.response.type = 'json'
-            ctx.response.body = {
-                status: ctx.response.status,
+            response.type = 'json'
+            response.body = {
+                status: response.status,
                 error: error.message,
             }
         }
     }
 }
 
-export const { httpResponse, errorHandler, HttpError, httpNotFound } =
-    new Utils()
+export const {
+    httpResponse,
+    errorHandler,
+    HttpError,
+    httpNotFound,
+    normalizeParameter,
+} = new Utils()
