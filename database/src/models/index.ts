@@ -1,3 +1,9 @@
-export * from './character.model.ts'
-export * from './film.model.ts'
-export * from './planet.model.ts'
+import { CharacterModel } from './character.model.ts'
+import { FilmModel } from './film.model.ts'
+import { PlanetModel } from './planet.model.ts'
+
+export const store = {
+    Character: CharacterModel,
+    Film: FilmModel,
+    Planet: PlanetModel,
+}
