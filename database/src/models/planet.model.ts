@@ -1,22 +1,66 @@
-import { Schema, model } from 'npm:mongoose'
+import { modelOptions, prop, getModelForClass } from 'npm:@typegoose/typegoose'
+import { Model, Types } from 'npm:mongoose'
 
-const planetSchema = new Schema(
-    {
-        _id: String,
-        name: String,
-        rotation_period: String,
-        orbital_period: String,
-        diameter: String,
-        climate: String,
-        gravity: String,
-        terrain: String,
-        surface_water: String,
-        residents: [{ type: String, ref: 'Character' }],
-        films: [{ type: String, ref: 'Film' }],
-    },
-    {
-        timestamps: true,
+@modelOptions({
+    schemaOptions: { timestamps: true },
+    options: { customName: 'Planet' },
+})
+class Planet extends Model {
+    @prop({
+        _id: true,
+        default: new Types.ObjectId(),
+    })
+    _id!: string
+
+    @prop({ required: true })
+    name!: string
+
+    @prop({ required: true })
+    rotation_period!: string
+
+    @prop({ required: true })
+    orbital_period!: string
+
+    @prop({ required: true })
+    diameter!: string
+
+    @prop({ required: true })
+    climate!: string
+
+    @prop({ required: true })
+    gravity!: string
+
+    @prop({ required: true })
+    terrain!: string
+
+    @prop({ required: true })
+    surface_water!: string
+
+    @prop({ type: [String], ref: 'Character' })
+    residents!: string[]
+
+    @prop({ type: [String], ref: 'Film' })
+    films!: string[]
+
+    public static async list() {
+        return await this.find()
+            .populate('residents', ['_id', 'name'])
+            .populate('films', ['_id', 'title'])
     }
-)
 
-export const Planet = model('Planet', planetSchema)
+    public static async get(id: string) {
+        return await this.findById(id)
+            .populate('residents', ['_id', 'name'])
+            .populate('films', ['_id', 'title'])
+    }
+
+    public static async insert(planet: Planet) {
+        return await this.create(planet)
+    }
+
+    public static async delete(id: string) {
+        return await this.findByIdAndDelete(id)
+    }
+}
+
+export const PlanetModel = getModelForClass(Planet)
