@@ -1,13 +1,36 @@
-import type { Context } from 'https://deno.land/x/oak@v12.5.0/mod.ts'
+import type { Context } from '../types/index.d.ts'
 
-import { planetsData } from '../data/index.ts'
+import { services } from '../services/index.ts'
 import { httpResponse } from '../utils/index.ts'
 
 class Controllers {
-    getAllPlanets({ response }: Context) {
-        const planets = planetsData.listPlanets()
+    async getAllPlanets({ response }: Context) {
+        const planets = await services.listPlanets()
 
         httpResponse(response, 200, planets)
+    }
+
+    async getPlanetById({ params, response }: Context) {
+        const planet = await services.getPlanet(params.id)
+
+        !planet
+            ? httpResponse(response, 404, 'Not found')
+            : httpResponse(response, 200, planet)
+    }
+
+    async createPlanet({ request, response }: Context) {
+        const body = await request.body().value
+        const newPlanet = await services.createPlanet(body)
+
+        httpResponse(response, 201, newPlanet)
+    }
+
+    async deletePlanet({ params, response }: Context) {
+        const deletedPlanet = await services.deletePlanet(params.id)
+
+        !deletedPlanet
+            ? httpResponse(response, 404, 'Not found')
+            : httpResponse(response, 200, deletedPlanet)
     }
 }
 

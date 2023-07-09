@@ -1,3 +1,4 @@
+import type { ResponseBody } from 'https://deno.land/x/oak@v12.5.0/response.ts'
 import type {
     Context,
     Response,
@@ -16,19 +17,16 @@ class Utils {
 
     httpNotFound({ response }: Context) {
         response.status = 404
-        response.type = 'json'
         response.body = {
             status: 404,
             error: 'Not Found',
         }
     }
 
-    httpResponse(res: Response, statusCode: number, data: unknown) {
+    httpResponse(res: Response, statusCode: number, data: ResponseBody) {
+        if (data) res.body = data
+
         res.status = statusCode
-        res.body = {
-            status: statusCode,
-            data,
-        }
     }
 
     normalizeParameter(query: string) {

@@ -16,13 +16,14 @@ class Controllers {
         const item = await store[model].get(params.id)
 
         !item
-            ? httpResponse(response, 404, 'Not found')
+            ? httpResponse(response, 404, null)
             : httpResponse(response, 200, item)
     }
 
     async create({ request, response, params }: Context) {
         const model = normalizeParameter(params.model) as ModelType
         const body = await request.body({ type: 'json' }).value
+
         const item = await store[model].insert(body)
 
         httpResponse(response, 201, item)
@@ -33,7 +34,7 @@ class Controllers {
         const item = await store[model].delete(params.id)
 
         !item
-            ? httpResponse(response, 404, 'Not found')
+            ? httpResponse(response, 404, null)
             : httpResponse(response, 200, item)
     }
 }

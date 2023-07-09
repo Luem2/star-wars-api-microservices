@@ -8,6 +8,7 @@ import { env } from '../config/env.ts'
 
 try {
     const { Character, Film, Planet } = store
+
     await mongoose.connect(env['MONGO_URI'])
 
     await Character.deleteMany()
