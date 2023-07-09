@@ -14,6 +14,8 @@ services:
         container_name: database-starwars
         restart: unless-stopped
         image: database-starwars:latest
+        environment:
+            - MONGO_URI=mongodb://mongo-db:27017/starwars
         build:
             context: ./database
         ports:
