@@ -1,12 +1,6 @@
 import type { Request, Response } from 'npm:@types/express@4.17.17'
 
 class Utils {
-    declare isDocker
-
-    constructor() {
-        this.isDocker = Deno.env.get('DOCKER')
-    }
-
     mainResponse(_req: Request, res: Response) {
         res.send({
             status: 200,
@@ -27,7 +21,8 @@ class Utils {
     }
 
     getUrlTarget(name: string, port: number) {
-        const hostname = this.isDocker ? `${name}-starwars` : 'localhost'
+        const isDocker = Deno.env.get('DOCKER')
+        const hostname = isDocker ? `${name}-starwars` : 'localhost'
 
         return `http://${hostname}:${port}`
     }

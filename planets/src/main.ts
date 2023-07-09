@@ -23,7 +23,7 @@ app.addEventListener('listen', ({ port, hostname, secure }) => {
     const host = hostname === '0.0.0.0' ? 'localhost' : hostname
 
     console.info(
-        `🟢 Service Characters is running at ${protocol}://${host}:${port}`
+        `🟢 Service Planets is running at ${protocol}://${host}:${port}`
     )
 })
 
