@@ -22,7 +22,9 @@ app.addEventListener('listen', ({ port, hostname, secure }) => {
     const protocol = secure ? 'https' : 'http'
     const host = hostname === '0.0.0.0' ? 'localhost' : hostname
 
-    console.info(`🟢 App is running at ${protocol}://${host}:${port}`)
+    console.info(
+        `🟢 Service Characters is running at ${protocol}://${host}:${port}`
+    )
 })
 
 await app.listen({ port: 7003 })
