@@ -1,5 +1,7 @@
 FROM denoland/deno:alpine
 
+ENV DOCKER=true
+
 EXPOSE 7002
 
 WORKDIR /app
