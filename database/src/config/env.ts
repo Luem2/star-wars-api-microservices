@@ -6,5 +6,5 @@ export const loadEnv = await load({
 })
 
 export const env = {
-    MONGO_URI: loadEnv['MONGO_URI'],
+    MONGO_URI: loadEnv['MONGO_URI'] ?? Deno.env.get('MONGO_URI'),
 }
