@@ -1,57 +1,71 @@
-import { Application, Router } from 'https://deno.land/x/oak@v12.5.0/mod.ts'
-import { oakCors } from 'https://deno.land/x/cors@v1.2.2/oakCors.ts'
-import { proxy } from 'https://deno.land/x/oak_proxy@v0.0.2/mod.ts'
-import oakLogger from 'https://deno.land/x/oak_logger@1.0.0/mod.ts'
-import { httpNotFound, mainResponse } from './utils/index.ts'
+// @deno-types="npm:@types/express@4.17.17"
+import express from 'npm:express@4.18.2'
+// @deno-types="npm:@types/morgan@1.9.4"
+import morgan from 'npm:morgan'
+import cors from 'npm:cors'
+import { createProxyMiddleware as proxy } from 'npm:http-proxy-middleware'
+import { getUrlTarget, httpNotFound, mainResponse } from './utils/index.ts'
 
-const app = new Application()
-const router = new Router()
+const app = express()
+const router = express.Router()
 
-app.use(oakCors())
-app.use(oakLogger.logger)
-app.use(oakLogger.responseTime)
+app.use(cors())
+app.use(morgan('dev'))
 
 router.get('/', mainResponse)
 
 app.use(
     proxy('/characters', {
-        target: 'http://characters:7001',
-        pathRewrite: {
-            '/characters': '/',
-        },
+        target: getUrlTarget('characters', 7001),
+        pathRewrite: { '^/characters': '/' },
+        changeOrigin: true,
+    })
+)
+
+app.use(
+    proxy('/characters/:id', {
+        target: getUrlTarget('characters', 7001),
+        pathRewrite: { '^/characters/:id': '/:id' },
         changeOrigin: true,
     })
 )
 
 app.use(
     proxy('/films', {
-        target: 'http://films:7002',
-        pathRewrite: {
-            '/films': '/',
-        },
+        target: getUrlTarget('films', 7002),
+        pathRewrite: { '^/films': '/' },
+        changeOrigin: true,
+    })
+)
+
+app.use(
+    proxy('/films/:id', {
+        target: getUrlTarget('films', 7002),
+        pathRewrite: { '^/films/:id': '/:id' },
         changeOrigin: true,
     })
 )
 
 app.use(
     proxy('/planets', {
-        target: 'http://planets:7003',
-        pathRewrite: {
-            '/planets': '/',
-        },
+        target: getUrlTarget('planets', 7003),
+        pathRewrite: { '^/planets': '/' },
         changeOrigin: true,
     })
 )
 
-app.use(router.routes())
+app.use(
+    proxy('/planets/:id', {
+        target: getUrlTarget('planets', 7003),
+        pathRewrite: { '^/planets/:id': '/:id' },
+        changeOrigin: true,
+    })
+)
+
+app.use(router)
 
 app.use(httpNotFound)
 
-app.addEventListener('listen', ({ port, hostname, secure }) => {
-    const protocol = secure ? 'https' : 'http'
-    const host = hostname === '0.0.0.0' ? 'localhost' : hostname
-
-    console.info(`🟢 Gateway on ${protocol}://${host}:${port}`)
+app.listen(7000, () => {
+    console.info('🟢 Gateway on port 7000')
 })
-
-await app.listen({ port: 7000 })
