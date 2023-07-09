@@ -4,6 +4,7 @@ import type {
     Next,
 } from 'https://deno.land/x/oak@v12.5.0/mod.ts'
 
+import { Error as MongooseError } from 'npm:mongoose'
 import { CustomError } from './customError.ts'
 
 class Utils {
@@ -29,18 +30,23 @@ class Utils {
             data,
         }
     }
-
-    async errorHandler(ctx: Context, next: Next) {
+    async errorHandler({ response }: Context, next: Next) {
         try {
             await next()
         } catch (error) {
-            error instanceof CustomError
-                ? (ctx.response.status = error.statusCode)
-                : (ctx.response.status = 500)
+            switch (true) {
+                case error instanceof CustomError:
+                    response.status = error.statusCode
+                    break
+                case error instanceof MongooseError:
+                    response.status = 400
+                    break
+                default:
+                    response.status = 500
+            }
 
-            ctx.response.type = 'json'
-            ctx.response.body = {
-                status: ctx.response.status,
+            response.body = {
+                status: response.status,
                 error: error.message,
             }
         }

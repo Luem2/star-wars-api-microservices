@@ -1,9 +1,8 @@
-import { Context } from 'https://deno.land/x/oak@v12.5.0/mod.ts'
+import type { Request, Response } from 'npm:@types/express@4.17.17'
 
 class Utils {
-    mainResponse({ response }: Context) {
-        response.status = 200
-        response.body = {
+    mainResponse(_req: Request, res: Response) {
+        res.send({
             status: 200,
             URL: 'http://localhost:7000',
             paths: {
@@ -11,16 +10,14 @@ class Utils {
                 films: '/films',
                 planets: '/planets',
             },
-        }
+        })
     }
 
-    httpNotFound({ response }: Context) {
-        response.status = 404
-        response.type = 'json'
-        response.body = {
+    httpNotFound(_req: Request, res: Response) {
+        res.status(404).send({
             status: 404,
             error: 'Not Found',
-        }
+        })
     }
 }
 
