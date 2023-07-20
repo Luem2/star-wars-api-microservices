@@ -8,8 +8,7 @@ services:
         image: mongo:latest
         ports:
             - '27017:27017'
-        networks:
-            - starwars
+
     database:
         container_name: database-starwars
         restart: unless-stopped
@@ -19,11 +18,7 @@ services:
         build:
             context: ./database
         ports:
-            - '7004:7004'
-        depends_on:
-            - mongo
-        networks:
-            - starwars
+            - ':7004'
 
     gateway:
         container_name: gateway-starwars
@@ -33,10 +28,6 @@ services:
             context: ./gateway
         ports:
             - '7000:7000'
-        depends_on:
-            - database
-        networks:
-            - starwars
 
     characters:
         container_name: characters-starwars
@@ -45,11 +36,7 @@ services:
         build:
             context: ./characters
         ports:
-            - '7001:7001'
-        depends_on:
-            - database
-        networks:
-            - starwars
+            - ':7001'
 
     films:
         container_name: films-starwars
@@ -58,11 +45,7 @@ services:
         build:
             context: ./films
         ports:
-            - '7002:7002'
-        depends_on:
-            - database
-        networks:
-            - starwars
+            - ':7002'
 
     planets:
         container_name: planets-starwars
@@ -71,11 +54,4 @@ services:
         build:
             context: ./planets
         ports:
-            - '7003:7003'
-        depends_on:
-            - database
-        networks:
-            - starwars
-
-networks:
-    starwars:
+            - ':7003'

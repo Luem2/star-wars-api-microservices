@@ -1,6 +1,7 @@
 {
     "tasks": {
         "start": "deno run -A -c tsconfig.json src/main.ts",
-        "dev": "deno run -A -c tsconfig.json --watch src/main.ts"
+        "dev": "deno run -A -c tsconfig.json --watch src/main.ts",
+        "seed": "deno run -A -c tsconfig.json ./src/utils/seed.ts"
     }
 }
