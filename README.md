@@ -9,53 +9,52 @@
 
 ## Sobre el Upskilling
 
-Haciendo este proyecto, pude aprender la arquitectura de microservicios, base de datos NoSQL (**MongoDB**) interactuando con un ODM (**TypeORM**). Implemente el Runtime de **Deno**
+Es una REST API de la serie _Star Wars_ en la cual podemos consumir información y crear sobre: `Characters, Films y Planets`. Haciendo este proyecto, pude aprender la arquitectura de microservicios, ésta básicamente en atomizar la aplicación, cada servicio correrá en un contenedor de docker. Los servicios que se corren son:
 
--   **Arquitectura de microservicios**: Esta consiste basicamente en modularizar la aplicacion y que corra su servicio correspondiente...
--   **asda**
+-   **Characters**: Servicio relacionado con Characters.
+-   **Films**: Servicio relacionado con Films.
+-   **Planets**: Servicio relacionado con Planets.
+-   **MONGODB**: Contenedor que corre la base de datos Mongo.
+-   **Database**: Es el servicio que se encarga de comunicarse con la base de datos.
+-   **Gateway**: Es el Gateway o Puerta de enlace, en donde el usuario se conectará para interactuar con la aplicación.
 
 ## Tecnologias utilizadas
 
 -   [![Typescript][typescript]][typescript-url]
 -   [![Deno][deno]][deno-url]
 -   [![Oak][oak]][oak-url]
+-   [![Express][express]][express-url]
 -   [![MongoDB][mongodb]][mongodb-url]
--   [![TypeORM][typeorm]][typeorm-url]
+-   [![Mongoose][mongoose]][mongoose-url]
 -   [![Docker][docker]][docker-url]
 
 ## Correr el proyecto
 
 ### Requisito previo (Docker instalado)
 
-It is necessary to have [docker](https://docs.docker.com/engine/install/) and [docker compose](https://docs.docker.com/compose/) installed. Make sure you have them installed, follow the installation guide on the official page.
+Es necesario tener [docker](https://docs.docker.com/engine/install) y [docker compose](https://docs.docker.com/compose) instalados. Asegurese de tenerlos instalados, siga la guia de instalación de la página oficial.
 
--   Check if they are _installed_, run the following commands to see their version:
-    <br />
-    `docker --version`
-    <br />
-    `docker compose version`
+Revisa si se han instalado correctamente, corra los siguientes comandos:
+<br />
+`docker --version`
+<br />
+`docker compose version`
 
-    Output example:
+Output:
 
-    ```sh
-    - docker --version
-    Docker version 23.0.1, build a5ee5b1
+```sh
+- docker --version
+Docker version 23.0.1, build a5ee5b1
 
-    - docker compose version
-    Docker Compose version v2.16.0
-    ```
+- docker compose version
+Docker Compose version v2.16.0
+```
 
-1. **In the root of the project folder `star-wars-api-microservices`** run the following command, and wait for the installation to finish:
+En la raíz del proyecto `star-wars-api-microservices` ejecute el siguiente comando:
 
-    ```sh
-    docker compose build
-    ```
-
-2. **Run the following command** to pull up all the services described in the docker-compose.yml file.
-
-    ```sh
-    docker compose up -d
-    ```
+```sh
+docker compose up -d --build
+```
 
 ## Contacto
 
@@ -71,9 +70,11 @@ It is necessary to have [docker](https://docs.docker.com/engine/install/) and [d
 [deno-url]: https://deno.land/
 [oak]: https://img.shields.io/badge/oak-464647?style=for-the-badge&logo=gumtree&logoColor=%2361DAFB
 [oak-url]: https://deno.land/x/oak@v12.5.0
+[express]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[express-url]: https://expressjs.com/es/
 [mongodb]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
 [mongodb-url]: https://www.mongodb.com/
-[typeorm]: https://img.shields.io/badge/Typeorm-EE0000?style=for-the-badge&logo=databricks&logoColor=white
-[typeorm-url]: https://typeorm.io/
+[mongoose]: https://img.shields.io/badge/Mongoose-EE0000?style=for-the-badge&logo=databricks&logoColor=white
+[mongoose-url]: https://mongoosejs.com/
 [docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [docker-url]: https://docker.com
