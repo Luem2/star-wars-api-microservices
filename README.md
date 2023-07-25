@@ -9,7 +9,7 @@
 
 ## Sobre el Upskilling
 
-Es una REST API de la serie _Star Wars_ en la cual podemos consumir información y crear sobre: `Characters, Films y Planets`. Haciendo este proyecto, pude aprender la arquitectura de microservicios, ésta básicamente en atomizar la aplicación, cada servicio correrá en un contenedor de docker. Los servicios que se corren son:
+Es una REST API de la serie _Star Wars_ en la cual podemos consumir información y crear sobre: `Characters, Films y Planets`. Haciendo este proyecto, pude aprender la arquitectura de microservicios. Lo que se hace aplicando esta arquitectura, es aislar cada servicio de la aplicación en un contenedor de docker, y cada uno de estos servicios, estará dentro de la misma red para que se puedan comunicar entre si. Los servicios que se corren son:
 
 -   **Characters**: Servicio relacionado con Characters.
 -   **Films**: Servicio relacionado con Films.
@@ -55,6 +55,34 @@ En la raíz del proyecto `star-wars-api-microservices` ejecute el siguiente coma
 ```sh
 docker compose up -d --build
 ```
+
+## ENDPOINTS:
+
+En donde se require el `id`, puede ser de valor numérico y si es una instancia del modelo creado por el usuario, el id es de tipo `uuid`.
+El primer `GET` es para obtener todas las instancias del modelo, y el segundo `GET` es para obtener una en específico.
+El `POST` es para crear una instancia del modelo.
+El `DELETE` es para eliminar una instancia específica del modelo.
+
+### Characters:
+
+`GET: https://localhost:7000/characters` <br/>
+`GET: https://localhost:7000/characters/:id` <br/>
+`POST: https://localhost:7000/characters` <br/>
+`DELETE: https://localhost:7000/characters/:id`
+
+### Films:
+
+`GET: https://localhost:7000/films` <br/>
+`GET: https://localhost:7000/films/:id` <br/>
+`POST: https://localhost:7000/films` <br/>
+`DELETE: https://localhost:7000/films/:id`
+
+### Planets:
+
+`GET: https://localhost:7000/planets` <br/>
+`GET: https://localhost:7000/planets/:id` <br/>
+`POST: https://localhost:7000/planets` <br/>
+`DELETE: https://localhost:7000/planets/:id`
 
 ## Contacto
 
