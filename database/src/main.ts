@@ -6,6 +6,7 @@ import mongoose from 'npm:mongoose'
 import router from './routers/index.ts'
 import { errorHandler, httpNotFound } from './utils/index.ts'
 import { env } from './config/env.ts'
+import './utils/seed.ts'
 
 const app = new Application()
 
