@@ -26,4 +26,5 @@ jobs:
               run: git pull origin main
 
             - name: Restart Docker containers on remote machine
-              run: docker compose down --rmi local && docker compose build --no-cache && docker compose up -d
+              run: |
+                  ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} 'docker compose down --rmi local && docker compose build --no-cache && docker compose up -d'
