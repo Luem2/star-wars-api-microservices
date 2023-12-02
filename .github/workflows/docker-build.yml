@@ -1,0 +1,31 @@
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: SSH into your remote machine
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USERNAME }}
+                  key: ${{ secrets.STARWARS_SSH_KEY }}
+
+            - name: Update repository on remote machine
+              run: |
+                  cd home/pinouser/prueba/star-wars-api-microservices
+                  git pull origin main
+
+            - name: Restart Docker containers on remote machine
+              run: |
+                  ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} 'cd /home/pinouser/prueba/star-wars-api-microservices && docker compose down --rmi local && docker compose build --no-cache && docker compose up -d'
