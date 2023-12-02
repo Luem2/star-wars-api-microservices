@@ -24,8 +24,7 @@ jobs:
 
             - name: View repository
               run: |
-                  cd home/pinouser/prueba/star-wars-api-microservices
-                    ls -la
+                  ls -la
 
             # - name: Update repository on remote machine
             #   run: |
