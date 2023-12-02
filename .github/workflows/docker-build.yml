@@ -20,6 +20,7 @@ jobs:
                   host: ${{ secrets.REMOTE_HOST }}
                   username: ${{ secrets.REMOTE_USERNAME }}
                   key: ${{ secrets.STARWARS_SSH_KEY }}
+                  port: 2222
 
             - name: Update repository on remote machine
               run: |
