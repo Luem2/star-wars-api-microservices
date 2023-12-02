@@ -52,6 +52,7 @@ jobs:
                   key: ${{ secrets.STARWARS_SSH_KEY }}
                   host: ${{ secrets.REMOTE_HOST }}
                   username: ${{ secrets.REMOTE_USERNAME }}
+                  port: 2222
                   script: ls -la
 
             # - name: Rebuild Docker containers on remote machine
