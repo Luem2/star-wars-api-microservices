@@ -18,7 +18,7 @@ app.use(router.allowedMethods())
 
 app.use(httpNotFound)
 
-console.log('por favor andame doy mi alma')
+console.log('No voy a cordoba')
 
 app.addEventListener('listen', ({ port, hostname, secure }) => {
     const protocol = secure ? 'https' : 'http'
