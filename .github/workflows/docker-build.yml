@@ -19,14 +19,13 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USERNAME }}
           port: ${{ secrets.REMOTE_PORT }}
-          script: ls -la
-          # script: cd ./prueba/star-wars-api-microservices && git pull
+          script: cd ./prueba/star-wars-api-microservices && git pull
 
-      # - name: SSH into remote machine and pull changes
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #       key: ${{ secrets.STARWARS_SSH_KEY }}
-      #       host: ${{ secrets.REMOTE_HOST }}
-      #       username: ${{ secrets.REMOTE_USERNAME }}
-      #       port: ${{ secrets.REMOTE_PORT }}
-      #       script: cd ./prueba/star-wars-api-microservices && docker compose down --rmi local && docker compose build --no-cache && docker compose up -d
+      - name: SSH into remote machine and pull changes
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          key: ${{ secrets.STARWARS_SSH_KEY }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: cd ./prueba/star-wars-api-microservices && docker compose down --rmi local && docker compose build --no-cache && docker compose up -d
