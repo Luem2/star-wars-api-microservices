@@ -18,8 +18,6 @@ app.use(router.allowedMethods())
 
 app.use(httpNotFound)
 
-console.log('CAMBIO CON GITHUB ACTIONS')
-
 app.addEventListener('listen', ({ port, hostname, secure }) => {
     const protocol = secure ? 'https' : 'http'
     const host = hostname === '0.0.0.0' ? 'localhost' : hostname
